@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,8 @@ import { MaterialModule } from './material/material.module';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule
   ],
   providers: [ApiService],
