@@ -17,7 +17,10 @@
             *ngIf="question.id !=4"
             [formControlName]="question.id"
             [id]="question.id"
+            [errorStateMatcher]="matcher"
+            required
           />
+
 
           <!--Showing input NAICS questions-->
           <input
@@ -26,22 +29,29 @@
             [matAutocomplete]="auto"
             [formControlName]="question.id"
             [id]="question.id"
+            [errorStateMatcher]="matcher"
+            required
           />
           <mat-autocomplete   #auto="matAutocomplete" [displayWith]="displayFn" >
             <mat-option *ngFor="let item of naicsAutoComplete | async" [value]="item.description">
               {{ item.description | titlecase }}
             </mat-option>
           </mat-autocomplete>
+          
         </div>
         
           <!--Showing select  questions-->
-          <mat-select [id]="question.id" *ngSwitchCase="'select'" [formControlName]="question.id">
+          <mat-select required [id]="question.id" *ngSwitchCase="'select'" [formControlName]="question.id" [errorStateMatcher]="matcher">
             <mat-option *ngFor="let option of question.options" [value]="option.text">
               {{ option.text }}
               </mat-option
             >
           </mat-select>
         </mat-form-field>
+    
+        <mat-error *ngIf="submitted && this.form.controls[question.id].hasError('required')">
+            This field is <strong>required</strong>
+          </mat-error>
       </div>
     </mat-grid-tile>
   </mat-grid-list>

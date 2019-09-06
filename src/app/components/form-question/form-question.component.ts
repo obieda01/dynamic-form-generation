@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import {ErrorStateMatcher} from '@angular/material/core';
+
 import {
   startWith,
   map,
@@ -14,7 +16,12 @@ import { ApiService } from '../../services/api.service';
 import { QuestionAbstract }  from '../../models/question-abstract';
 import {FormControl} from '@angular/forms';
 
-
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-form-question',
   templateUrl: './form-question.component.html',
@@ -23,10 +30,11 @@ import {FormControl} from '@angular/forms';
 export class FormQuestionComponent implements OnInit {
 
   @Input() question: QuestionAbstract; // questions passed from the parent component
-  @Input() form: FormGroup;            // form group passed from the parent component
+  @Input() form: FormGroup;  
+  @Input() submitted: boolean;          // form group passed from the parent component
   naicsAutoComplete: Observable<any> = null;
   autoCompleteControl = new FormControl();
-  
+  matcher = new MyErrorStateMatcher();
   /**
    * create api instant to be used.
    * @param {ApiService} api - The api service.
@@ -69,5 +77,9 @@ export class FormQuestionComponent implements OnInit {
         return of(null);
       })
     );
+  }
+  
+  getErrorMessage() {
+    return this.form.hasError('required') ? 'You must enter a value' : '';
   }
 }

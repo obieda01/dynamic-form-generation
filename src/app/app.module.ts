@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { ApiService} from './services/api.service';
@@ -27,7 +28,7 @@ import { FormQuestionComponent } from './components/form-question/form-question.
     FormsModule,
     MaterialModule
   ],
-  providers: [ApiService, FormControlService],
+  providers: [ApiService, FormControlService, {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

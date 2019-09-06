@@ -17,7 +17,7 @@ export class FormComponent  {
   @Input() questions: QuestionAbstract[] = [];  // questions passed from the parent component
   form: FormGroup;
   payLoad = '';
-
+  submitted = false;
    /**
    * create api instant to be used.
    * @param {ApiService} api - The api service.
@@ -37,7 +37,19 @@ export class FormComponent  {
    * @return {} .
    */
     onSubmit() {
+      this.submitted = true;
+      // stop here if form is invalid
+      if (this.form.invalid) {
+            return;
+        }
+     
       this.api.postAnswers(JSON.stringify(this.form.value));
+      this.form.reset();
+
+    }
+    onCancel(){
+      this.submitted = false;
+      this.form.reset();
     }
   
 
