@@ -1,31 +1,41 @@
-import { TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule }  from "@angular/material";
+import { HttpClientModule } from '@angular/common/http'; 
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+
+// in-app imports 
 import { AppComponent } from './app.component';
 
-describe('AppComponent', () => {
+@Component({selector: 'app-card', template: ''})
+class CardStubComponent {}
+
+let comp:    AppComponent;
+let fixture: ComponentFixture<AppComponent>;
+
+describe('AppComponent & TestModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        CardStubComponent
+        
       ],
-    }).compileComponents();
+      imports : [ MatCardModule, HttpClientModule ],
+      schemas: [ NO_ERRORS_SCHEMA ]
+     
+    })
+    .compileComponents().then(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      comp    = fixture.componentInstance;
+    });
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  it('can instantiate the component', () => {
+    expect(comp).not.toBeNull();
   });
 
-  it(`should have as title 'dynamic-form-generation'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('dynamic-form-generation');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to dynamic-form-generation!');
-  });
+  it('should create the app', async(() => {
+    expect(comp).toBeTruthy();
+  }));
+  
 });

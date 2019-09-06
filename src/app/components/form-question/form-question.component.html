@@ -1,0 +1,48 @@
+<div [formGroup]="form">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+      
+      <!--Showing question text -->
+      <mat-label class="full-width"> {{ question.text }} </mat-label>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div [ngSwitch]="question.type">
+        <mat-form-field>
+          <!--Showing input  questions-->
+          <div *ngSwitchCase="'input'">
+          <input
+            matInput
+            *ngIf="question.id !=4"
+            [formControlName]="question.id"
+            [id]="question.id"
+          />
+
+          <!--Showing input NAICS questions-->
+          <input
+            matInput
+            *ngIf="question.id =='4'"
+            [matAutocomplete]="auto"
+            [formControlName]="question.id"
+            [id]="question.id"
+          />
+          <mat-autocomplete   #auto="matAutocomplete" [displayWith]="displayFn" >
+            <mat-option *ngFor="let item of naicsAutoComplete | async" [value]="item.description">
+              {{ item.description | titlecase }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+        
+          <!--Showing select  questions-->
+          <mat-select [id]="question.id" *ngSwitchCase="'select'" [formControlName]="question.id">
+            <mat-option *ngFor="let option of question.options" [value]="option.text">
+              {{ option.text }}
+              </mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

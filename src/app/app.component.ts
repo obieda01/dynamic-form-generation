@@ -1,39 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './api.service';
-import {FormControl, FormGroupDirective, NgForm, Validators, ReactiveFormsModule} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+// in-app imports 
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+
 })
 export class AppComponent implements OnInit {
-  emailFormControl = new FormControl('', [
-    Validators.required,
-  ]);
+  questions; 
 
-  matcher = new MyErrorStateMatcher();
-  questions;
-
+  /**
+   * create api instant to be used.
+   * @param {ApiService} api - The api service.
+   * @return {} The  value.
+   */
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
     this.showQuestions();
   }
 
-  showQuestions() {
-    this.api.getQuestions()
-        .subscribe((data) => {
-          this.questions = data;
-        });
+
+  /**
+   * get questions using the api service getQuestions().
+   * @param {} 
+   * @return {} set questions to the data returned from the api call.
+   */
+    showQuestions() {
+      this.api.getQuestions()
+          .subscribe((data) => {
+            this.questions = data;
+          });
   }
 }

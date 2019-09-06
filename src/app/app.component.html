@@ -1,46 +1,8 @@
-<mat-card class="outer-card " style="">
-    <mat-card-title style="color: white; background-color: #EF8204;padding:0px margin:0px;">Bold Penguin</mat-card-title>
-   <mat-card class="inner-card " layout="row" layout-align="center center" >
-       <mat-card-content>
-         <mat-card-title>Your custom quote starts here.</mat-card-title>
-         <mat-card-subtitle>This is going to be amazing!</mat-card-subtitle>
-         <form class="example-form">
- 
-             <section class="example-section">
-                 <div *ngFor="let question of questions">
-                   <mat-grid-list cols="2" rowHeight="2:1">
-                         <mat-grid-tile > 
-                           
-                           <mat-label >{{question.text}} </mat-label>
- 
-                         </mat-grid-tile>
-                         <mat-grid-tile>
-                           
-                           <mat-form-field *ngIf="question.type=='input'">
-                             
-                           <input  matInput  [formControl]="emailFormControl" [errorStateMatcher]="matcher">
-                           <mat-error *ngIf="emailFormControl.hasError('required')">Please choose an animal</mat-error>
-                         </mat-form-field>
-                         
-                             <mat-form-field *ngIf="question.type=='select'">
-                                     <mat-select required>
-                                       <mat-option *ngFor="let option of question.options" [value]="option.text">
-                                         {{option.text}}
-                                       </mat-option>
-                                     </mat-select>
-                             </mat-form-field>
-                     </mat-grid-tile>
-                   </mat-grid-list>
-                 </div>  
-             </section>
- 
-             <section class="example-section">
-               <button mat-raised-button>Cancle</button>
-               <button mat-raised-button color="primary">Submit</button>
-             </section>
- 
-       </form>
-       </mat-card-content>
- </mat-card>
- </mat-card>
- 
+<div class="outer-div"><!-- beginning of outer div -->
+    <mat-card class="outer-card "><!-- beginning of outer card -->
+      <mat-card-title class="tilte-style">Bold Penguin</mat-card-title>
+        
+      <app-card [questions]="questions"></app-card>
+    
+    </mat-card><!-- end of outer card -->
+</div><!-- end of outer div -->

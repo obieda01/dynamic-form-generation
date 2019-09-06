@@ -1,26 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ApiService } from './api.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ApiService} from './services/api.service';
+import { FormControlService} from './services/form-control.service';
 import { MaterialModule } from './material/material.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CardComponent } from './components/card/card.component';
+import { FormComponent } from './components/form/form.component';
+import { FormQuestionComponent } from './components/form-question/form-question.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardComponent,
+    FormComponent,
+    FormQuestionComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     MaterialModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, FormControlService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

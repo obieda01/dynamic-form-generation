@@ -1,15 +1,25 @@
-.outer-card {
-    max-width: 1000px;
-  }
-  
-  .inner-card {
-    max-width: 600px;
-  }
-  .center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.outer-div {
+  padding-left: 300px;
+  padding-right: 300px;
+  padding-bottom: 100px;
+}
+
+
+.tilte-style {
+  color: white;
+  background-color: #ef8204;
+  padding: 0px;
+  margin: 0px;
+}
+
+.full-width {
+  width: 100%;
+}
