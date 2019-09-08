@@ -24,11 +24,15 @@ export class ApiService {
     return this.http.get(this.questionsUrl, httpOptions)    
   }
   
+  /**
+    * @desc post the answers  using API POST http request 
+    * @param {answers} - JSON QuestionAbstract type 
+    * @return {} - none
+  */
   postAnswers (customerAnswers) {
     this.http.post(this.postUrl, customerAnswers,{ 
       observe: 'response',
-      headers: httpOptionsPSt.headers,
-      responseType:"json"
+      headers: httpOptionsPSt.headers
 
       } )
     .subscribe(
@@ -47,6 +51,11 @@ export class ApiService {
     
     }
 
+  /**
+    * @desc Async search NAIS using API GET http request 
+    * @param {query} String 
+    * @return {Observable} - 
+  */
   search(query: string): Observable<any> {
     return this.http.get<any>(this.searchUrl,{ 
       observe: 'response',
